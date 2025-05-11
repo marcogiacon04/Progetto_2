@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IntegerToRoman.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rrroman-number</a> &gt; <a href="index.source.html" class="el_package">it.unipd.mtss</a> &gt; <span class="el_source">IntegerToRoman.java</span></div><h1>IntegerToRoman.java</h1><pre class="source lang-java linenums">//prova
+package it.unipd.mtss;
+
+import java.util.List;
+import static java.util.Arrays.asList;
+
+<span class="fc" id="L7">public class IntegerToRoman {</span>
+<span class="fc" id="L8">    private static final List&lt;Roman&gt; lstRoman = asList (</span>
+            new Roman(1000, &quot;M&quot;),
+            new Roman(900, &quot;CM&quot;),
+            new Roman(500, &quot;D&quot;),
+            new Roman(400, &quot;CD&quot;),
+            new Roman(100, &quot;C&quot;),
+            new Roman(90, &quot;XC&quot;),
+            new Roman(50, &quot;L&quot;),
+            new Roman(40, &quot;XL&quot;),
+            new Roman(10, &quot;X&quot;),
+            new Roman(9, &quot;IX&quot;),
+            new Roman(5, &quot;V&quot;),
+            new Roman(4, &quot;IV&quot;),
+            new Roman(1, &quot;I&quot;)
+    );
+
+    public static String convert(int number) {
+<span class="fc bfc" id="L25" title="All 6 branches covered.">        if (number &lt; 1 ^ number &gt; 1000) throw new IllegalArgumentException (&quot;Il numero deve essere nel range 1-1000&quot;);</span>
+
+<span class="fc" id="L27">        StringBuilder ris = new StringBuilder();</span>
+<span class="fc" id="L28">        int num = number;</span>
+
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        for (Roman r : lstRoman) {</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">            while (num &gt;= r.getNum()) {</span>
+<span class="fc" id="L32">                ris.append(r.getRoman());</span>
+<span class="fc" id="L33">                num -= r.getNum();</span>
+            }
+<span class="fc" id="L35">        }</span>
+
+<span class="fc" id="L37">        return ris.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

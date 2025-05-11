@@ -1,90 +1,86 @@
 //prova
-//////////////////////////////////////////////////////////////////// 
-// [Roberto Mariano] [Doroftei] [2111031] 
-// [Marco] [Giacon] [2123537] 
-////////////////////////////////////////////////////////////////////
 
 package it.unipd.mtss;
 
-public class RomanPrinter {
+import java.util.HashMap;
+import java.util.Map;
 
-    public static String print(int num) {
+public class RomanPrinter {
+    public static String print(int num){
         return printAsciiArt(IntegerToRoman.convert(num));
     }
 
-    private static String printAsciiArt(String romanNumber) {
-        StringBuilder asciiArt = new StringBuilder();
-    
-        // Definisci la rappresentazione ASCII art orizzontale per ogni lettera romana
-        String[][] asciiLetters = {
-            {//Riga1
-                "  __  __ ", // M
-                "  _____  ",  // D
-                "   _____ ",  // C
-                "  _      ",  // L
-                " __   __",  // X
-                " __      __",  // V
-                "  _____ " // I
-            },
+    private static final Map<Character, String[]> ascii = new HashMap<> ();
+    static {
+        ascii.put('I', new String[]{
+                " _____ ",
+                "|_   _|",
+                "  | |  ",
+                "  | |  ",
+                " _| |_ ",
+                "|_____|"
+        });
+        ascii.put('V', new String[]{
+                "__      __",
+                "\\ \\    / /",
+                " \\ \\  / / ",
+                "  \\ \\/ /  ",
+                "   \\  /   ",
+                "    \\/    "
+        });
+        ascii.put('X', new String[]{
+                "__   __",
+                "\\ \\ / /",
+                " \\ V / ",
+                "  > <  ",
+                " / . \\ ",
+                "/_/ \\_\\"
+        });
+        ascii.put('L', new String[]{
+                " _      ",
+                "| |     ",
+                "| |     ",
+                "| |     ",
+                "| |____ ",
+                "|______|"
+        });
+        ascii.put('C', new String[]{
+                "  _____ ",
+                " / ____|",
+                "| |     ",
+                "| |     ",
+                "| |____ ",
+                " \\_____|"
+        });
+        ascii.put('D', new String[]{
+                " _____  ",
+                "|  __ \\ ",
+                "| |  | |",
+                "| |  | |",
+                "| |__| |",
+                "|_____/ "
+        });
+        ascii.put('M', new String[]{
+                " __  __ ",
+                "|  \\/  |",
+                "| \\  / |",
+                "| |\\/| |",
+                "| |  | |",
+                "|_|  |_|"
+        });
+    }
 
-            {//Riga2
-                " |  \\/  |", // M
-                " |  __ \\ ",  // D
-                "  / ____|",  // C
-                " | |     ",  // L
-                " \\ \\ / /",  // X
-                " \\ \\    / /",  // V
-                " |_   _|" // I
-            },
+    private static String printAsciiArt(String romanNumber){
+        StringBuilder ris = new StringBuilder();
+        int height = ascii.get('I').length;     // Altezza di ciascuna letter (=6)
 
-            {//Riga3
-                " | \\  / |", // M
-                " | |  | |",  // D
-                " | |     ",  // C
-                " | |     ",  // L
-                "  \\ V / ",  // X
-                "  \\ \\  / / ",  // V
-                "   | |  " // I
-            },
-
-            {//Riga4
-                " | |\\/| |", // M
-                " | |  | |", // D
-                " | |     ", // C
-                " | |     ", // L
-                "   > <  ", // X
-                "   \\ \\/ /  ", // V
-                "   | |  " // I
-            },
-                
-            {//Riga5
-                " | |  | |", // M
-                " | |__| |", // D
-                " | |____ ", // C
-                " | |____ ", // L
-                "  / . \\ ", // X
-                "    \\  /   ", // V
-                "  _| |_ " // I
-            },
-                
-            {//Riga6
-                " |_|  |_|", // M
-                " |_____/ ", // D
-                "  \\_____|", // C
-                " |______|", // L
-                " /_/ \\_\\", // X
-                "     \\/    ", // V
-                " |_____|" // I
-            },
-        };
-        
-        for( int z=0; z<6; z++) {
-            for (char c : romanNumber.toCharArray()) {
-                // Aggiungi la rappresentazione ASCII art orizzontale della lettera corrente
-                asciiArt.append(asciiLetters[z]["MDCLXVI".indexOf(c)]);
+        for (int r = 0; r < height; r++) {      // Iterazione sulle righe delle lettere
+            for (char c : romanNumber.toCharArray()) {      // Iterazione per ciascun carattere in romanNumber
+                ris.append(ascii.get(c)[r] + ' ');      // Riga 'r' per ciascun carattere 'c'
             }
-            asciiArt.append("\n");
+            ris.append('\n');
         }
-        return asciiArt.toString();
+
+        return ris.toString();
     }
 }

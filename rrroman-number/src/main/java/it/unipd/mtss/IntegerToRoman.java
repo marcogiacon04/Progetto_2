@@ -1,31 +1,39 @@
 //prova
-//////////////////////////////////////////////////////////////////// 
-// [Roberto Mariano] [Doroftei] [2111031] 
-// [Marco] [Giacon] [2123537] 
-////////////////////////////////////////////////////////////////////
-
 package it.unipd.mtss;
 
+import java.util.List;
+import static java.util.Arrays.asList;
+
 public class IntegerToRoman {
+    private static final List<Roman> lstRoman = asList (
+            new Roman(1000, "M"),
+            new Roman(900, "CM"),
+            new Roman(500, "D"),
+            new Roman(400, "CD"),
+            new Roman(100, "C"),
+            new Roman(90, "XC"),
+            new Roman(50, "L"),
+            new Roman(40, "XL"),
+            new Roman(10, "X"),
+            new Roman(9, "IX"),
+            new Roman(5, "V"),
+            new Roman(4, "IV"),
+            new Roman(1, "I")
+    );
+
     public static String convert(int number) {
-        if (number < 1 || number > 1000) {
-            throw new IllegalArgumentException("Il numero deve essere compreso tra 1 e 1000");
-        }
+        if (number < 1 ^ number > 1000) throw new IllegalArgumentException ("Il numero deve essere nel range 1-1000");
 
-        // Definizione delle lettere romane e dei loro valori corrispondenti
-        String[] romanLetters = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
-        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        StringBuilder ris = new StringBuilder();
+        int num = number;
 
-        StringBuilder romanNumber = new StringBuilder();
-
-        // Itera attraverso i valori romani e aggiungi le lettere corrispondenti
-        for (int i = 0; i < values.length; i++) {
-            while (number >= values[i]) {
-                number -= values[i];
-                romanNumber.append(romanLetters[i]);
+        for (Roman r : lstRoman) {
+            while (num >= r.getNum()) {
+                ris.append(r.getRoman());
+                num -= r.getNum();
             }
         }
 
-        return romanNumber.toString();
+        return ris.toString();
     }
 }
